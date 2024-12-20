@@ -106,6 +106,77 @@ Aqui estão os principais pontos que você deve corrigir no sistema:
 - Melhore os textos exibidos no terminal para que o sistema seja mais intuitivo.
 - Adicione mensagens de erro claras para entradas inválidas.
 
+## Problemas no código
+
+1. Falta de validações:
+
+- Não verifica se o título ou descrição estão vazios.
+- Não valida se a duração é um número positivo.
+- Não trata erros caso a pessoa usuária insira palavras ao invés de números ou números através de palavras
+
+2. Más práticas de POO:
+
+- A classe Main mistura lógica de negócios, manipulação de arquivos e interação com o usuário.
+- A classe Video expõe diretamente seus atributos, violando o encapsulamento.
+
+3. Interface confusa:
+
+- Mensagens de erro e feedback poderiam ser mais claras.
+- Não há tratamento para entradas inválidas, como letras em vez de números.
+
+4. Manutenção difícil:
+
+- O código não está modularizado, dificultando a reutilização e testes.
+
+## Objetivos: 
+
+- Refatorar o código para corrigir os problemas mencionados.
+- Aplicar boas práticas de POO, como encapsulamento e separação de responsabilidades.
+- Melhorar a interface de interação com o usuário.
+- Implementar validações para garantir que os dados inseridos sejam consistentes.
+
+## ✅ Requisitos a serem corrigidos e implementados
+Aqui estão os principais pontos que você deve corrigir e implementar no sistema:
+
+1. Correção de bugs
+   - Resolva problemas relacionados à leitura e escrita no arquivo videos.txt.
+   - Corrija erros que possam ocorrer ao manipular vídeos com dados inválidos ou incompletos.
+2. Refatoração para boas práticas
+   - Separe as responsabilidades do código em diferentes classes, como:
+       - Uma classe para gerenciar a lógica de negócios (VideoManager).
+       - Uma classe para manipular arquivos (FileHandler).
+   - Aplique o princípio de encapsulamento na classe Video, tornando os atributos privados e acessíveis apenas por getters e setters.
+   - Modularize o código para evitar duplicação e melhorar a legibilidade.
+3. Validações
+
+Certifique-se de que:
+   - O título e a descrição do vídeo não estejam vazios.
+   - A duração do vídeo seja um número positivo.
+   - A categoria do vídeo seja válida (exemplo: "Filme", "Série", "Documentário").
+   - A data de publicação seja uma data válida no formato dd/MM/yyyy.
+   - Adicione mensagens de erro claras para entradas inválidas.
+4. Novas funcionalidades
+    - Editar vídeo: Permita que o usuário edite as informações de um vídeo existente.
+    - Excluir vídeo: Adicione a opção de remover um vídeo do sistema.
+    - Filtrar vídeos por categoria: Permita que o usuário liste apenas os vídeos de uma categoria específica.
+    - Ordenar vídeos por data de publicação: Adicione a opção de listar os vídeos em ordem cronológica.
+    - Relatório de estatísticas: Exiba um resumo com:
+    - O número total de vídeos.
+    - A duração total de todos os vídeos.
+    - A quantidade de vídeos por categoria.
+5. Interface de interação
+   - Melhore os textos exibidos no terminal para que o sistema seja mais intuitivo.
+   - Adicione um menu principal com as seguintes opções:
+   - Adicionar vídeo.
+   - Listar vídeos.
+   - Pesquisar vídeo por título.
+   - Editar vídeo.
+   - Excluir vídeo.
+   - Filtrar vídeos por categoria.
+   - Ordenar vídeos por data de publicação.
+   - Exibir relatório de estatísticas.
+   - Sair.
+
 ## 🔄 Revisando um Pull Request
 
 ⚠⚠⚠ À medida que você e as outras pessoas estudantes forem entregando os projetos, vocês podem também fazer a revisão dos Pull Requests dos seus colegas.
