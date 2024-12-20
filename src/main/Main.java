@@ -1,27 +1,22 @@
-import java.io.*;
+package main;
+
+import model.Video;
+import repository.FileVideoRepository;
+import service.VideoService;
+import service.VideoServiceImpl;
+import strategy.SearchStrategy;
+import strategy.TitleSearchStrategy;
+
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        List<Video> videos = new ArrayList<>();
-        File file = new File("videos.txt");
-
-        // Carregar vídeos do arquivo
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String line;
-            while ((line = br.readLine()) != null) {
-                Video video = Video.fromString(line);
-                if (video != null) {
-                    videos.add(video);
-                }
-            }
-            br.close();
-        } catch (IOException e) {
-            System.out.println("Erro ao carregar vídeos: " + e.getMessage());
-        }
+        VideoService videoService = new VideoServiceImpl(new FileVideoRepository("videos.txt"));
+        SearchStrategy searchStrategy = new TitleSearchStrategy();
 
         while (true) {
             System.out.println("\n=== Sistema de Gerenciamento de Vídeos ===");
@@ -50,54 +45,28 @@ public class Main {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                     Date dataPublicacao = sdf.parse(dataStr);
                     Video video = new Video(titulo, descricao, duracao, categoria, dataPublicacao);
-                    videos.add(video);
-
-                    // Salvar no arquivo
-                    BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
-                    bw.write(video.toString());
-                    bw.newLine();
-                    bw.close();
-
+                    videoService.addVideo(video);
                     System.out.println("Vídeo adicionado com sucesso!");
                 } catch (Exception e) {
-                    System.out.println("Erro ao adicionar vídeo: " + e.getMessage());
+                    System.out.println("Erro ao adicionar vídeo.");
                 }
             } else if (opcao == 2) {
-                System.out.println("\n=== Lista de Vídeos ===");
+                List<Video> videos = videoService.listVideos();
                 for (Video video : videos) {
-                    System.out.println("Título: " + video.titulo);
-                    System.out.println("Descrição: " + video.descricao);
-                    System.out.println("Duração: " + video.duracao + " minutos");
-                    System.out.println("Categoria: " + video.categoria);
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                    System.out.println("Data de Publicação: " + sdf.format(video.dataPublicacao));
-                    System.out.println("-----------------------");
+                    System.out.println(video);
                 }
             } else if (opcao == 3) {
-                System.out.print("Digite o título do vídeo que deseja buscar: ");
-                String busca = scanner.nextLine();
-                boolean encontrado = false;
-                for (Video video : videos) {
-                    if (video.titulo.contains(busca)) {
-                        System.out.println("\n=== Vídeo Encontrado ===");
-                        System.out.println("Título: " + video.titulo);
-                        System.out.println("Descrição: " + video.descricao);
-                        System.out.println("Duração: " + video.duracao + " minutos");
-                        System.out.println("Categoria: " + video.categoria);
-                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                        System.out.println("Data de Publicação: " + sdf.format(video.dataPublicacao));
-                        encontrado = true;
-                        break;
-                    }
-                }
-                if (!encontrado) {
-                    System.out.println("Vídeo não encontrado.");
+                System.out.print("Digite o título para busca: ");
+                String query = scanner.nextLine();
+                List<Video> resultados = searchStrategy.search(videoService.listVideos(), query);
+                for (Video video : resultados) {
+                    System.out.println(video);
                 }
             } else if (opcao == 4) {
                 System.out.println("Saindo do sistema...");
                 break;
             } else {
-                System.out.println("Opção inválida. Tente novamente.");
+                System.out.println("Opção inválida.");
             }
         }
 
