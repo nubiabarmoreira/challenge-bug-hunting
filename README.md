@@ -1,4 +1,5 @@
-# Boas-vindas ao repositório do API Bug Hunting! 🐛🔍
+# Boas-vindas ao repositório do Bug Hunting! 🐛🔍
+# Sistema de Gerenciamento de Vídeos - Refatoração e Boas Práticas 🎥📂
 
 Você já usa o GitHub diariamente para desenvolver os exercícios e os projetos, certo? Agora, para desenvolver este desafio, você deverá seguir as instruções aqui descritas para conseguir resolvê-lo. Se tiver qualquer dúvida, nos envie pelo chat! #vamosquevamos 🚀
 
@@ -8,16 +9,10 @@ Aqui você vai encontrar os detalhes do que fazer antes de iniciar o desenvolvim
 
 Uma equipe de pessoas desenvolvedoras estava encarregada de criar um sistema simples para gerenciar informações de vídeos, como título, descrição e duração, armazenando esses dados em arquivos locais. O sistema foi desenvolvido utilizando Java com conceitos básicos de POO e manipulação de arquivos, mas, infelizmente, a equipe não seguiu as melhores práticas de desenvolvimento.
 
-O código está funcional, mas apresenta bugs, problemas de organização e más práticas de programação. Além disso, o sistema não possui validações adequadas e a interface de interação com o usuário (via terminal) é confusa.
+O código está funcional, mas apresenta **bugs**, **problemas de organização** e **más práticas de programação**. Além disso, o sistema não possui validações adequadas e a interface de interação com o usuário (via terminal) é confusa.
 
-Dito isso, vocês foram selecionados para este desafio, por já conhecerem Java e os conceitos de POO. Sendo assim, vocês estão encarregados desta demanda de refatoração geral do sistema.
+Dito isso, vocês foram selecionados para este desafio, por já conhecerem **Java** e os conceitos de **POO**. Sendo assim, vocês estão encarregados desta demanda de **refatoração geral do sistema**.
 
-A refatoração consiste em:
-
-1. Encontrar e corrigir os famigerados bugs.
-Melhorar a organização do código e aplicar boas práticas de POO.
-2. Implementar validações para garantir que os dados inseridos pelo usuário sejam consistentes.
-3. Melhorar a interface de interação no terminal, tornando-a mais clara e amigável.
 
 ## 🗒 Passo a passo para Desenvolvimento
 
@@ -31,11 +26,13 @@ Antes de começar, certifique-se de que você tem as ferramentas necessárias in
 
 ### 2. Estrutura inicial do projeto
 
-O projeto inicial já está disponível no repositório. Ele contém:
+O código será dividido em pacotes para organizar melhor as responsabilidades:
 
-- Uma classe principal chamada Main.java, que é responsável por executar o sistema.
-- Uma classe chamada Video.java, que representa os vídeos.
-- Um arquivo de texto chamado videos.txt, onde os dados dos vídeos são armazenados.
+- model: Contém a classe Video.
+- repository: Contém a interface VideoRepository e sua implementação FileVideoRepository.
+- service: Contém a interface VideoService e sua implementação VideoServiceImpl.
+- strategy: Contém estratégias para busca de vídeos (SearchStrategy).
+- main: Contém a classe principal Main.
 
 Você deve clonar o repositório e analisar o código existente para entender como ele funciona.
 
@@ -43,7 +40,8 @@ Você deve clonar o repositório e analisar o código existente para entender co
    Para rodar o sistema, basta compilar e executar o arquivo Main.java. Caso use o IntelliJ basta "dar play" ou, caso utilize o terminal, pode rodar via comando. Por exemplo:
    
 ```
-java ./src/Main.java
+javac -d bin src/main/Main.java
+java ./src/main/Main.java
 ```
 O sistema permite que o usuário:
 
@@ -150,21 +148,12 @@ Aqui estão os principais pontos que você deve corrigir e implementar no sistem
 3. Validações
 
 Certifique-se de que:
-   - O título e a descrição do vídeo não estejam vazios.
-   - A duração do vídeo seja um número positivo.
-   - A categoria do vídeo seja válida (exemplo: "Filme", "Série", "Documentário").
-   - A data de publicação seja uma data válida no formato dd/MM/yyyy.
-   - Adicione mensagens de erro claras para entradas inválidas.
-4. Novas funcionalidades
-    - Editar vídeo: Permita que o usuário edite as informações de um vídeo existente.
-    - Excluir vídeo: Adicione a opção de remover um vídeo do sistema.
-    - Filtrar vídeos por categoria: Permita que o usuário liste apenas os vídeos de uma categoria específica.
-    - Ordenar vídeos por data de publicação: Adicione a opção de listar os vídeos em ordem cronológica.
-    - Relatório de estatísticas: Exiba um resumo com:
-    - O número total de vídeos.
-    - A duração total de todos os vídeos.
-    - A quantidade de vídeos por categoria.
-5. Interface de interação
+- [ ] O título e a descrição do vídeo não devem estar vazios.
+- [ ] A duração do vídeo deve ser um número positivo.
+- [ ] A categoria do vídeo deve ser válida (exemplo: "Filme", "Série", "Documentário").
+- [ ] A data de publicação deve ser uma data válida no formato `dd/MM/yyyy`.
+
+4. Interface de interação
    - Melhore os textos exibidos no terminal para que o sistema seja mais intuitivo.
    - Adicione um menu principal com as seguintes opções:
    - Adicionar vídeo.
@@ -176,6 +165,21 @@ Certifique-se de que:
    - Ordenar vídeos por data de publicação.
    - Exibir relatório de estatísticas.
    - Sair.
+
+5. Acoplamento: A classe Main está acoplada diretamente às implementações.
+   
+6. Melhorias no Strategy Pattern: Adicionar novas estratégias de busca, como por categoria ou duração.
+
+## Implementação de novas funcionalidades
+
+1. **Editar vídeo**: Permitir que o usuário edite as informações de um vídeo existente.
+2. **Excluir vídeo**: Adicionar a opção de remover um vídeo do sistema.
+3. **Filtrar vídeos por categoria**: Listar apenas os vídeos de uma categoria específica.
+4. **Ordenar vídeos por data de publicação**: Listar os vídeos em ordem cronológica.
+5. **Relatório de estatísticas**:
+   - Número total de vídeos.
+   - Duração total de todos os vídeos.
+   - Quantidade de vídeos por categoria.
 
 ## 🔄 Revisando um Pull Request
 
@@ -210,5 +214,4 @@ Alguns pontos devem ser levados em consideração durante a comunicação da pes
 ---
 
 ## 🚀 Prontos? Vamos caçar os bugs! 👾🔫
-
-Boa sorte no desafio! Se precisar de ajuda, não hesite em nos chamar no Chat. Estamos aqui para ajudar! 😊
+   1Boa sorte no desafio! Lembre-se de que o objetivo principal é aprender e se divertir enquanto melhora suas habilidades. Se precisar de ajuda, não hesite em nos chamar no Chat. Estamos aqui para ajudar! 😊
