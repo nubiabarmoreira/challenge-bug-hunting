@@ -61,6 +61,7 @@ public class Main {
                 System.out.print("Digite o título para busca: ");
                 String query = scanner.nextLine();
                 List<Video> resultados = searchStrategy.search(videoService.listVideos(), query);
+                System.out.println("Seguem os vídeos encontrados de acordo com sua pesquisa: ");
                 for (Video video : resultados) {
                     System.out.println(video);
                 }
