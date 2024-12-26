@@ -29,6 +29,7 @@ public class Main {
             scanner.nextLine(); // Consumir a quebra de linha
 
             if (opcao == 1) {
+                System.out.println("Vamos dar início à adição de novo vídeo!");
                 System.out.print("Digite o título do vídeo: ");
                 String titulo = scanner.nextLine();
                 System.out.print("Digite a descrição do vídeo: ");
