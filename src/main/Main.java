@@ -52,6 +52,7 @@ public class Main {
                     System.out.println("Erro ao adicionar vídeo.");
                 }
             } else if (opcao == 2) {
+                System.out.println("Segue listagem dos vídeos existentes: ");
                 List<Video> videos = videoService.listVideos();
                 for (Video video : videos) {
                     System.out.println(video);
