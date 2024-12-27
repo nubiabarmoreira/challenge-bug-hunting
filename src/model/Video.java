@@ -38,12 +38,6 @@ public class Video {
         return dataPublicacao;
     }
 
-    @Override
-    public String toString() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        return titulo + ";" + descricao + ";" + duracao + ";" + categoria + ";" + simpleDateFormat.format(dataPublicacao);
-    }
-
     public static Video fromString(String linha) {
         try {
             String[] partes = linha.split(";");
