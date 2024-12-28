@@ -4,7 +4,6 @@ import model.Video;
 import repository.FileVideoRepository;
 import strategy.SearchFactory;
 import strategy.SearchStrategy;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,8 +17,7 @@ public class VideoManager {
     }
 
     public void adicionarVideo (Scanner scanner) {
-
-        System.out.println("Vamos dar início à adição de novo vídeo!");
+        System.out.println("\nVamos dar início à adição de novo vídeo!\n");
         System.out.print("Digite o título do vídeo: ");
         String titulo = scanner.nextLine();
         System.out.print("Digite a descrição do vídeo: ");
@@ -43,7 +41,7 @@ public class VideoManager {
     }
 
     public void listarVideos () {
-        System.out.println("Segue listagem dos vídeos existentes: ");
+        System.out.println("\nSegue listagem dos vídeos existentes: \n");
         List<Video> videos = videoService.listVideos();
         for (Video video : videos) {
             System.out.println(video);
@@ -51,9 +49,9 @@ public class VideoManager {
     }
 
     public void pesquisarVideo (Scanner scanner) {
-        System.out.println("Digite a opção para pesquisa: ");
         System.out.println("1- Pesquisa por Título");
         System.out.println("2- Pesquisa por Categoria");
+        System.out.println("\nDigite a opção para pesquisa: ");
         int optionMenu = scanner.nextInt();
 
         SearchStrategy searchStrategy = SearchFactory.getSearch(optionMenu);
@@ -62,12 +60,9 @@ public class VideoManager {
         String query = scanner.nextLine();
 
         List<Video> resultados = searchStrategy.search(videoService.listVideos(), query);
-        System.out.println("Seguem os vídeos encontrados de acordo com sua pesquisa: ");
+        System.out.println("\nSeguem os vídeos encontrados de acordo com sua pesquisa: \n");
         for (Video video : resultados) {
             System.out.println(video);
         }
     }
-
-
-
 }
