@@ -1,11 +1,13 @@
 package strategy;
 
 import model.Video;
-
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class TitleSearchStrategy implements SearchStrategy {
+    Scanner input = new Scanner(System.in);
+
     @Override
     public List<Video> search(List<Video> videos, String query) {
         return videos.stream()
@@ -15,6 +17,8 @@ public class TitleSearchStrategy implements SearchStrategy {
 
     @Override
     public String showMessage() {
-        return "Digite o título para busca: ";
+        System.out.println("Digite o título do vídeo para busca: ");
+        String tituloBusca = input.next();
+        return tituloBusca;
     }
 }
