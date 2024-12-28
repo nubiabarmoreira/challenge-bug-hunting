@@ -1,5 +1,6 @@
 package model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -54,11 +55,19 @@ public class Video {
         }
     }
 
-    public void validarDados (){
+    public void validarDadosDeInput (String date){
         if (duracao <= 0){
-            throw new IllegalArgumentException("Duração deve ser maior que zero.");
-        } else if (titulo == null ) {
+            throw new IllegalArgumentException("A duração do vídeo deve ser maior do que zero minutos.");
+        } else if (titulo == null || titulo == " " || descricao == null || descricao == " ") {
+            throw new IllegalArgumentException("O título e a descrição do vídeo devem ser preenchidos de forma válida.");
+        }
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        simpleDateFormat.setLenient(false);
+        try {
+            simpleDateFormat.parse(date);
+        } catch (ParseException e) {
+            System.out.println("Por favor, insira um formato válido de data dd/MM/yyyy.");
         }
     }
 }
