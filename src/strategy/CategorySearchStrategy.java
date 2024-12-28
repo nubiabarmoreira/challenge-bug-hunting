@@ -5,11 +5,16 @@ import model.Video;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TitleSearchStrategy implements SearchStrategy {
+public class CategorySearchStrategy implements SearchStrategy {
     @Override
     public List<Video> search(List<Video> videos, String query) {
         return videos.stream()
-                .filter(video -> video.getTitulo().toLowerCase().contains(query.toLowerCase()))
+                .filter(video -> video.getCategoria().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String showMessage() {
+        return "Digite a categoria para busca: ";
     }
 }
