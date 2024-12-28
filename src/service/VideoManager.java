@@ -1,4 +1,73 @@
 package service;
 
+import model.Video;
+import repository.FileVideoRepository;
+import strategy.SearchFactory;
+import strategy.SearchStrategy;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
 public class VideoManager {
+    private VideoService videoService;
+
+    public VideoManager (){
+        this.videoService = new VideoServiceImpl(new FileVideoRepository("videos.txt"));
+    }
+
+    public void adicionarVideo (Scanner scanner) {
+
+        System.out.println("Vamos dar início à adição de novo vídeo!");
+        System.out.print("Digite o título do vídeo: ");
+        String titulo = scanner.nextLine();
+        System.out.print("Digite a descrição do vídeo: ");
+        String descricao = scanner.nextLine();
+        System.out.print("Digite a duração do vídeo (em minutos): ");
+        int duracao = scanner.nextInt();
+        System.out.print("Digite a categoria do vídeo: ");
+        String categoria = scanner.nextLine();
+        System.out.print("Digite a data de publicação (dd/MM/yyyy): ");
+        String dataStr = scanner.nextLine();
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataPublicacao = sdf.parse(dataStr);
+            Video video = new Video(titulo, descricao, duracao, categoria, dataPublicacao);
+            videoService.addVideo(video);
+            System.out.println("Vídeo adicionado com sucesso!");
+        } catch (Exception e) {
+            System.out.println("Erro ao adicionar vídeo.");
+        }
+    }
+
+    public void listarVideos () {
+        System.out.println("Segue listagem dos vídeos existentes: ");
+        List<Video> videos = videoService.listVideos();
+        for (Video video : videos) {
+            System.out.println(video);
+        }
+    }
+
+    public void pesquisarVideo (Scanner scanner) {
+        System.out.println("Digite a opção para pesquisa: ");
+        System.out.println("1- Pesquisa por Título");
+        System.out.println("2- Pesquisa por Categoria");
+        int optionMenu = scanner.nextInt();
+
+        SearchStrategy searchStrategy = SearchFactory.getSearch(optionMenu);
+
+        System.out.print(searchStrategy.showMessage());
+        String query = scanner.nextLine();
+
+        List<Video> resultados = searchStrategy.search(videoService.listVideos(), query);
+        System.out.println("Seguem os vídeos encontrados de acordo com sua pesquisa: ");
+        for (Video video : resultados) {
+            System.out.println(video);
+        }
+    }
+
+
+
 }
