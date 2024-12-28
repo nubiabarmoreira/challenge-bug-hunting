@@ -53,4 +53,12 @@ public class Video {
             return null; // Ignora erros de parsing
         }
     }
+
+    public void validarDados (){
+        if (duracao <= 0){
+            throw new IllegalArgumentException("Duração deve ser maior que zero.");
+        } else if (titulo == null ) {
+
+        }
+    }
 }
