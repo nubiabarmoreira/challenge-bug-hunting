@@ -12,4 +12,9 @@ public class TitleSearchStrategy implements SearchStrategy {
                 .filter(video -> video.getTitulo().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public String showMessage() {
+        return "Digite o título para busca: ";
+    }
 }
