@@ -1,5 +1,4 @@
 package model;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -55,7 +54,7 @@ public class Video {
         }
     }
 
-    public void validarDadosDeInput (String date){
+    public void validarDadosDeInput(String date){
         if (duracao <= 0){
             throw new IllegalArgumentException("A duração do vídeo deve ser maior do que zero minutos.");
         } else if (titulo == null || titulo == " " || descricao == null || descricao == " ") {

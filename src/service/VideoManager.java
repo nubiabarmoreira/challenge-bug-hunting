@@ -30,8 +30,8 @@ public class VideoManager {
         String dataStr = scanner.nextLine();
 
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date dataPublicacao = sdf.parse(dataStr);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Date dataPublicacao = simpleDateFormat.parse(dataStr);
             Video video = new Video(titulo, descricao, duracao, categoria, dataPublicacao);
             videoService.addVideo(video);
             System.out.println("Vídeo adicionado com sucesso!");
@@ -52,9 +52,9 @@ public class VideoManager {
         System.out.println("1- Pesquisa por Título");
         System.out.println("2- Pesquisa por Categoria");
         System.out.println("\nDigite a opção para pesquisa: ");
-        int optionMenu = scanner.nextInt();
+        int opcaoDePesquisa = scanner.nextInt();
 
-        SearchStrategy searchStrategy = SearchFactory.getSearch(optionMenu);
+        SearchStrategy searchStrategy = SearchFactory.getSearch(opcaoDePesquisa);
 
         System.out.print(searchStrategy.showMessage());
         String query = scanner.nextLine();

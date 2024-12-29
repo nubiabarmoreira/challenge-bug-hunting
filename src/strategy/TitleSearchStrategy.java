@@ -18,7 +18,7 @@ public class TitleSearchStrategy implements SearchStrategy {
     @Override
     public String showMessage() {
         System.out.println("Digite o título do vídeo para busca: ");
-        String tituloBusca = input.next();
+        String buscaPorTitulo = input.next();
         return "Fazendo pesquisa...";
     }
 }

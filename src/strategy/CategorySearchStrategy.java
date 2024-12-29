@@ -17,7 +17,7 @@ public class CategorySearchStrategy implements SearchStrategy {
 
     @Override
     public String showMessage() {
-        String categoriaBusca = input.nextLine();
+        String buscaPorCcategoria = input.nextLine();
         return "Fazendo pesquisa...";
     }
 }
