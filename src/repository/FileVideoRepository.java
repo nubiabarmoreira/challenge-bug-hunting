@@ -15,9 +15,9 @@ public class FileVideoRepository implements VideoRepository {
 
     @Override
     public void save(Video video) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-            bw.write(video.toString());
-            bw.newLine();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
+            bufferedWriter.write(video.toString());
+            bufferedWriter.newLine();
         } catch (IOException e) {
             // Ignorar erros por enquanto
         }
@@ -26,9 +26,9 @@ public class FileVideoRepository implements VideoRepository {
     @Override
     public List<Video> findAll() {
         List<Video> videos = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 Video video = Video.fromString(line);
                 if (video != null) {
                     videos.add(video);
