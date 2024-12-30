@@ -17,6 +17,7 @@ public class Main {
             System.out.println("4. Sair");
             System.out.print("Escolha uma opção: ");
             int opcaoMenuPrincipal = scanner.nextInt();
+            scanner.nextLine();
 
             if (opcaoMenuPrincipal == 1) {
                 videoManager.adicionarVideo(scanner);
