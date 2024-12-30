@@ -1,9 +1,12 @@
 package service;
 
 import model.Video;
+import model.listaDeCategoria;
 import repository.FileVideoRepository;
 import strategy.SearchFactory;
 import strategy.SearchStrategy;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -18,25 +21,35 @@ public class VideoManager {
 
     public void adicionarVideo (Scanner scanner) {
         System.out.println("\nVamos dar início à adição de novo vídeo!\n");
+
         System.out.print("Digite o título do vídeo: ");
         String titulo = scanner.nextLine();
+
         System.out.print("Digite a descrição do vídeo: ");
         String descricao = scanner.nextLine();
+
         System.out.print("Digite a duração do vídeo (em minutos): ");
         int duracao = scanner.nextInt();
-        System.out.print("Digite a categoria do vídeo: ");
+        scanner.nextLine();
+
+        System.out.print("Digite a categoria do vídeo: \n");
+        for (listaDeCategoria listaDeCategoria : listaDeCategoria.values()){
+            System.out.println(listaDeCategoria.getDescrition());
+        }
         String categoria = scanner.nextLine();
+
         System.out.print("Digite a data de publicação (dd/MM/yyyy): ");
         String dataStr = scanner.nextLine();
 
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date dataPublicacao = simpleDateFormat.parse(dataStr);
+
             Video video = new Video(titulo, descricao, duracao, categoria, dataPublicacao);
             videoService.addVideo(video);
             System.out.println("Vídeo adicionado com sucesso!");
         } catch (Exception e) {
-            System.out.println("Erro ao adicionar vídeo.");
+            System.out.println("Erro ao adicionar vídeo: " + e.getMessage());
         }
     }
 
@@ -53,6 +66,7 @@ public class VideoManager {
         System.out.println("2- Pesquisa por Categoria");
         System.out.println("\nDigite a opção para pesquisa: ");
         int opcaoDePesquisa = scanner.nextInt();
+        scanner.nextLine();
 
         SearchStrategy searchStrategy = SearchFactory.getSearch(opcaoDePesquisa);
 
