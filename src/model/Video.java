@@ -16,6 +16,7 @@ public class Video {
         this.duracao = duracao;
         this.categoria = categoria;
         this.dataPublicacao = dataPublicacao;
+        validarDadosDeInput();
     }
 
     public String getTitulo() {
@@ -54,19 +55,21 @@ public class Video {
         }
     }
 
-    public void validarDadosDeInput(String date){
+    public void validarDadosDeInput(){
         if (duracao <= 0){
             throw new IllegalArgumentException("A duração do vídeo deve ser maior do que zero minutos.");
-        } else if (titulo == null || titulo == " " || descricao == null || descricao == " ") {
-            throw new IllegalArgumentException("O título e a descrição do vídeo devem ser preenchidos de forma válida.");
+        } else if (titulo == null || titulo.isBlank()) {
+            throw new IllegalArgumentException("O título do vídeo deve ser preenchido de forma válida.");
+        } else if (descricao == null || descricao.isBlank()) {
+            throw new IllegalArgumentException("A descrição do vídeo deve ser preenchida de forma válida.");
         }
-
+/*
+        try {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         simpleDateFormat.setLenient(false);
-        try {
-            simpleDateFormat.parse(date);
+        Date date = simpleDateFormat.parse(dataStr);
         } catch (ParseException e) {
             System.out.println("Por favor, insira um formato válido de data dd/MM/yyyy.");
-        }
+        }*/
     }
 }
