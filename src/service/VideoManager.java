@@ -34,7 +34,7 @@ public class VideoManager {
 
         System.out.print("Digite a categoria do vídeo: \n");
         for (listaDeCategoria listaDeCategoria : listaDeCategoria.values()){
-            System.out.println(listaDeCategoria.getDescrition());
+            System.out.println(listaDeCategoria.getDescritionCategoria());
         }
         String categoria = scanner.nextLine();
 
