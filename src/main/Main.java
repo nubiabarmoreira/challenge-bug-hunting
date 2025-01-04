@@ -1,5 +1,6 @@
 package main;
 
+import model.menuPrincipal;
 import service.VideoManager;
 
 import java.util.Scanner;
@@ -8,14 +9,17 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         VideoManager videoManager = new VideoManager();
+        boolean isMenuOpen = true;
 
-        while (true) {
+        while (isMenuOpen) {
             System.out.println("\n=== Sistema de Gerenciamento de Vídeos ===\n");
-            System.out.println("1. Adicionar vídeo");
-            System.out.println("2. Listar vídeos");
-            System.out.println("3. Pesquisar vídeo por título");
-            System.out.println("4. Sair");
+
+            for (menuPrincipal exibaMenuPrincipal : menuPrincipal.values()){
+                System.out.println(exibaMenuPrincipal.getDescritionMenu());
+            }
+
             System.out.print("Escolha uma opção: ");
+
             int opcaoMenuPrincipal = scanner.nextInt();
             scanner.nextLine();
 
