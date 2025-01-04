@@ -23,27 +23,37 @@ public class Main {
             int opcaoMenuPrincipal = scanner.nextInt();
             scanner.nextLine();
 
-            if (opcaoMenuPrincipal == 1) {
-                videoManager.adicionarVideo(scanner);
-            } else if (opcaoMenuPrincipal == 2) {
-                videoManager.listarVideos();
-            } else if (opcaoMenuPrincipal == 3) {
-                videoManager.pesquisarVideo(scanner);
-            } else if (opcaoMenuPrincipal == 4) {
-                videoManager.editarVideo();
-            } else if (opcaoMenuPrincipal == 5) {
-                videoManager.excluirVideo();
-            } else if (opcaoMenuPrincipal == 6) {
-                videoManager.pesquisarVideo(scanner);
-            } else if (opcaoMenuPrincipal == 7) {
-                videoManager.ordenarVideos();
-            } else if (opcaoMenuPrincipal == 8) {
-                videoManager.relatorioEstatistica();
-            } else if (opcaoMenuPrincipal == 9) {
-                System.out.println("Saindo do sistema...");
-                break;
-            } else {
-                System.out.println("Opção inválida.");
+            switch (opcaoMenuPrincipal) {
+                case 1:
+                    videoManager.adicionarVideo(scanner);
+                    break;
+                case 2:
+                    videoManager.listarVideos();
+                    break;
+                case 3:
+                    videoManager.pesquisarVideo(scanner);
+                    break;
+                case 4:
+                    videoManager.editarVideo(scanner);
+                    break;
+                case 5:
+                    videoManager.excluirVideo(scanner);
+                    break;
+                case 6:
+                    videoManager.pesquisarVideo(scanner);
+                    break;
+                case 7:
+                    videoManager.ordenarVideos();
+                    break;
+                case 8:
+                    videoManager.relatorioEstatistica(scanner);
+                    break;
+                case 9:
+                    System.out.println("Saindo do sistema...");
+                    break;
+                default:
+                    System.out.println("Opção inválida.");
+                    break;
             }
         }
 
