@@ -30,6 +30,16 @@ public class Main {
             } else if (opcaoMenuPrincipal == 3) {
                 videoManager.pesquisarVideo(scanner);
             } else if (opcaoMenuPrincipal == 4) {
+                videoManager.editarVideo();
+            } else if (opcaoMenuPrincipal == 5) {
+                videoManager.excluirVideo();
+            } else if (opcaoMenuPrincipal == 6) {
+                videoManager.pesquisarVideo(scanner);
+            } else if (opcaoMenuPrincipal == 7) {
+                videoManager.ordenarVideos();
+            } else if (opcaoMenuPrincipal == 8) {
+                videoManager.relatorioEstatistica();
+            } else if (opcaoMenuPrincipal == 9) {
                 System.out.println("Saindo do sistema...");
                 break;
             } else {
