@@ -1,6 +1,6 @@
 package model;
 
-public enum category {
+public enum listaDeCategoria {
     FILME ("1 : Filme"),
     SERIE ("2 : Série"),
     DOCUMENTARIO ("3 : Documentário"),
@@ -9,11 +9,11 @@ public enum category {
 
     private String descrition;
 
-    category(String descrition) {
+    listaDeCategoria(String descrition) {
         this.descrition = descrition;
     }
 
-    public String getDescrition() {
+    public String getDescritionCategoria() {
         return descrition;
     }
 }
