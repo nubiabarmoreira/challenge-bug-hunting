@@ -8,6 +8,10 @@ import strategy.CategorySearchStrategy;
 import strategy.SearchStrategy;
 import strategy.TitleSearchStrategy;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -216,20 +220,60 @@ public class VideoManager {
         System.out.println("\nEscolha o tipo de relatório que deseja: ");
         System.out.println("\n1- Número total de vídeos. \n2- Duração total de todos os vídeos. \n3- Quantidade de vídeos por categoria.\n");
         int tipoDeRelatorio = scanner.nextInt();
+        scanner.nextLine();
 
         switch (tipoDeRelatorio){
             case 1:
-                System.out.println("fazer");
+                int quantidadeDeVideos = 0;
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader("videos.txt"))) {
+                    while (bufferedReader.readLine() != null) {
+                        quantidadeDeVideos++;
+                    }
+                } catch (IOException e) {
+                    System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+                }
+                System.out.println("O número total de vídeos é de " + quantidadeDeVideos + "vídeos.");
                 break;
+
             case 2:
-                System.out.println("fazer");
+                int duracaoTotal = 0;
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader("videos.txt"))) {
+                    String linha;
+                    while ((linha = bufferedReader.readLine()) != null) {
+                        String[] partes = linha.split(";");
+                        int duracao = Integer.parseInt(partes[2]);
+                        duracaoTotal += duracao;
+                        duracaoTotal++;
+                    }
+                } catch (IOException e) {
+                    System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+                }
+                System.out.println("A duração total de todos os vídeos é de: " + duracaoTotal + " minutos.");
                 break;
+
             case 3:
-                System.out.println("fazer");
+                Map<String, Integer> quantidadePorCategoria = new HashMap<>();
+
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader("videos.txt"))) {
+                    String linha;
+                    while ((linha = bufferedReader.readLine()) != null) {
+                        String[] partes = linha.split(";");
+                        String porCategoria = partes[3];
+                        quantidadePorCategoria.put(porCategoria, quantidadePorCategoria.getOrDefault(porCategoria, 0) + 1);
+                    }
+                } catch (IOException e) {
+                    System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+                }
+                System.out.println("A quantidade de vídeos por categoria é de: ");
+                for (Map.Entry<String, Integer> entry : quantidadePorCategoria.entrySet()) {
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                }
                 break;
+
             default:
                 System.out.println("Opção inválida.");
                 break;
         }
     }
 }
+
