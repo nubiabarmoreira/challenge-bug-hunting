@@ -15,28 +15,54 @@ public class FileVideoRepository implements VideoRepository {
 
     @Override
     public void save(Video video) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-            bw.write(video.toString());
-            bw.newLine();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true))) {
+            bufferedWriter.write(video.toString());
+            bufferedWriter.newLine();
         } catch (IOException e) {
-            // Ignorar erros por enquanto
+            System.out.println("Erro ao salvar o arquivo: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void saveAll(List<Video> videos) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            for (Video video : videos) {
+                bufferedWriter.write(video.toString());
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar o arquivo: " + e.getMessage());
         }
     }
 
     @Override
     public List<Video> findAll() {
         List<Video> videos = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 Video video = Video.fromString(line);
                 if (video != null) {
                     videos.add(video);
                 }
             }
         } catch (IOException e) {
-            // Ignorar erros por enquanto
+            System.out.println("Erro ao procurar o arquivo: " + e.getMessage());
         }
         return videos;
+    }
+
+    @Override
+    public void delete(Video video) {
+        List<Video> videos = findAll();
+
+        boolean videoParaDeletar = videos.removeIf(v -> v.getTitulo().equals(video.getTitulo()));
+
+        if (!videoParaDeletar) {
+            System.out.println("Vídeo não encontrado no repositório.");
+            return;
+        }
+
+        save(video);
     }
 }

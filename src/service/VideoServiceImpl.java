@@ -18,6 +18,11 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    public void removeVideo(Video video) {
+        repository.delete(video);
+    }
+
+    @Override
     public List<Video> listVideos() {
         return repository.findAll();
     }
