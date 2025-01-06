@@ -5,6 +5,7 @@ import model.listaDeCategoria;
 import repository.FileVideoRepository;
 import strategy.SearchFactory;
 import strategy.SearchStrategy;
+import strategy.TitleSearchStrategy;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,22 +62,64 @@ public class VideoManager {
         }
     }
 
-    public void pesquisarVideo (Scanner scanner) {
-        System.out.println("1- Pesquisa por Título");
-        System.out.println("2- Pesquisa por Categoria");
-        System.out.println("\nDigite a opção para pesquisa: ");
-        int opcaoDePesquisa = scanner.nextInt();
-        scanner.nextLine();
+    public void pesquisarVideoPorTitulo (Scanner scanner) {
+        System.out.println("Digite o título do vídeo que deseja pesquisar: ");
+        String tituloParaBusca = scanner.nextLine();
 
-        SearchStrategy searchStrategy = SearchFactory.getSearch(opcaoDePesquisa);
+        if (tituloParaBusca == null || tituloParaBusca.isBlank()) {
+            System.out.println("O título não pode estar vazio. Tente novamente.");
+            return;
+        }
 
-        System.out.print(searchStrategy.showMessage());
-        String query = scanner.nextLine();
+        SearchStrategy searchStrategy = new TitleSearchStrategy();
+        List<Video> resultados = searchStrategy.search(videoService.listVideos(), tituloParaBusca);
 
-        List<Video> resultados = searchStrategy.search(videoService.listVideos(), query);
-        System.out.println("\nSeguem os vídeos encontrados de acordo com sua pesquisa: \n");
-        for (Video video : resultados) {
-            System.out.println(video);
+        if (resultados.isEmpty()) {
+            System.out.println("\nNenhum vídeo encontrado com o título fornecido.");
+        } else {
+            System.out.println("\nSeguem os vídeos encontrados de acordo com sua pesquisa: \n");
+            for (Video video : resultados) {
+                System.out.println(video);
+            }
+        }
+    }
+
+    public void pesquisarVideoPorCategoria (Scanner scanner) {
+
+    }
+
+    public void editarVideo (Scanner scanner) {
+
+    }
+
+    public void excluirVideo (Scanner scanner) {
+        System.out.println("Encontre o vídeo que deseja excluir.");
+        
+
+    }
+
+    public void ordenarVideos () {
+
+    }
+
+    public void relatorioEstatistica (Scanner scanner) {
+        System.out.println("\nEscolha o tipo de relatório que deseja: ");
+        System.out.println("\n1- Número total de vídeos. \n2- Duração total de todos os vídeos. \n3- Quantidade de vídeos por categoria.\n");
+        int tipoDeRelatorio = scanner.nextInt();
+
+        switch (tipoDeRelatorio){
+            case 1:
+                System.out.println("fazer");
+                break;
+            case 2:
+                System.out.println("fazer");
+                break;
+            case 3:
+                System.out.println("fazer");
+                break;
+            default:
+                System.out.println("Opção inválida.");
+                break;
         }
     }
 }

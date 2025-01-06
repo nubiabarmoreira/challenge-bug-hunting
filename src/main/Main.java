@@ -2,6 +2,7 @@ package main;
 
 import model.menuPrincipal;
 import service.VideoManager;
+import strategy.SearchStrategy;
 
 import java.util.Scanner;
 
@@ -31,7 +32,7 @@ public class Main {
                     videoManager.listarVideos();
                     break;
                 case 3:
-                    videoManager.pesquisarVideo(scanner);
+                    videoManager.pesquisarVideoPorTitulo(scanner);
                     break;
                 case 4:
                     videoManager.editarVideo(scanner);
@@ -40,7 +41,7 @@ public class Main {
                     videoManager.excluirVideo(scanner);
                     break;
                 case 6:
-                    videoManager.pesquisarVideo(scanner);
+                    videoManager.pesquisarVideoPorCategoria(scanner);
                     break;
                 case 7:
                     videoManager.ordenarVideos();
