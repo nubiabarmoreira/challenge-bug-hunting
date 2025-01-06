@@ -3,6 +3,7 @@ package service;
 import model.Video;
 import model.listaDeCategoria;
 import repository.FileVideoRepository;
+import strategy.CategorySearchStrategy;
 import strategy.SearchFactory;
 import strategy.SearchStrategy;
 import strategy.TitleSearchStrategy;
@@ -85,7 +86,25 @@ public class VideoManager {
     }
 
     public void pesquisarVideoPorCategoria (Scanner scanner) {
+        System.out.println("Digite a categoria do vídeo que deseja pesquisar: ");
+        String categoriaParaBusca = scanner.nextLine();
 
+        if (categoriaParaBusca == null || categoriaParaBusca.isBlank()) {
+            System.out.println("A categoria não pode estar vazia. Tente novamente.");
+            return;
+        }
+
+        SearchStrategy searchStrategy = new CategorySearchStrategy();
+        List<Video> resultados = searchStrategy.search(videoService.listVideos(), categoriaParaBusca);
+
+        if (resultados.isEmpty()) {
+            System.out.println("\nNenhum vídeo encontrado com a categoria fornecida.");
+        } else {
+            System.out.println("\nSeguem os vídeos encontrados de acordo com sua pesquisa: \n");
+            for (Video video : resultados) {
+                System.out.println(video);
+            }
+        }
     }
 
     public void editarVideo (Scanner scanner) {
