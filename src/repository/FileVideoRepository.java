@@ -24,6 +24,18 @@ public class FileVideoRepository implements VideoRepository {
     }
 
     @Override
+    public void saveAll(List<Video> videos) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            for (Video video : videos) {
+                bufferedWriter.write(video.toString());
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar o arquivo: " + e.getMessage());
+        }
+    }
+
+    @Override
     public List<Video> findAll() {
         List<Video> videos = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
@@ -44,7 +56,7 @@ public class FileVideoRepository implements VideoRepository {
     public void delete(Video video) {
         List<Video> videos = findAll();
 
-        boolean videoParaDeletar = videos.removeIf(v -> v.getTitulo() == video.getTitulo());
+        boolean videoParaDeletar = videos.removeIf(v -> v.getTitulo().equals(video.getTitulo()));
 
         if (!videoParaDeletar) {
             System.out.println("Vídeo não encontrado no repositório.");

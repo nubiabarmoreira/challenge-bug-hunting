@@ -10,10 +10,7 @@ import strategy.TitleSearchStrategy;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class VideoManager {
     private final VideoService videoService;
@@ -208,7 +205,11 @@ public class VideoManager {
     }
 
     public void ordenarVideos () {
+        List<Video> videos = videoRepository.findAll();
+        videos.sort(Comparator.comparing(Video :: getDataPublicacao));
+        videoRepository.saveAll(videos);
 
+        System.out.println("Vídeos ordenados por data de publicação com sucesso!");
     }
 
     public void relatorioEstatistica (Scanner scanner) {
