@@ -1,8 +1,7 @@
 package main;
 
-import model.menuPrincipal;
+import model.MenuPrincipal;
 import service.VideoManager;
-import strategy.SearchStrategy;
 
 import java.util.Scanner;
 
@@ -15,7 +14,7 @@ public class Main {
         while (isMenuOpen) {
             System.out.println("\n=== Sistema de Gerenciamento de Vídeos ===\n");
 
-            for (menuPrincipal exibaMenuPrincipal : menuPrincipal.values()){
+            for (MenuPrincipal exibaMenuPrincipal : MenuPrincipal.values()){
                 System.out.println(exibaMenuPrincipal.getDescritionMenu());
             }
 

@@ -1,6 +1,6 @@
 package model;
 
-public enum listaDeCategoria {
+public enum ListaDeCategoria {
     FILME ("1 : Filme"),
     SERIE ("2 : Série"),
     DOCUMENTARIO ("3 : Documentário"),
@@ -9,7 +9,7 @@ public enum listaDeCategoria {
 
     private String descrition;
 
-    listaDeCategoria(String descrition) {
+    ListaDeCategoria(String descrition) {
         this.descrition = descrition;
     }
 

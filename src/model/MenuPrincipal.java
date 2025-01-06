@@ -1,6 +1,6 @@
 package model;
 
-public enum menuPrincipal {
+public enum MenuPrincipal {
     ADICIONAR ("1. Adicionar vídeo"),
     LISTAR ("2. Listar vídeos"),
     PESQUISARTITULO ("3. Pesquisar vídeo por título"),
@@ -13,7 +13,7 @@ public enum menuPrincipal {
 
     private String descrition;
 
-    menuPrincipal (String descrition){
+    MenuPrincipal(String descrition){
         this.descrition = descrition;
     }
 

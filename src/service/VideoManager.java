@@ -1,7 +1,7 @@
 package service;
 
 import model.Video;
-import model.listaDeCategoria;
+import model.ListaDeCategoria;
 import repository.FileVideoRepository;
 import repository.VideoRepository;
 import strategy.CategorySearchStrategy;
@@ -35,7 +35,7 @@ public class VideoManager {
         scanner.nextLine();
 
         System.out.print("Digite a categoria do vídeo: \n");
-        for (listaDeCategoria listaDeCategoria : listaDeCategoria.values()){
+        for (ListaDeCategoria listaDeCategoria : ListaDeCategoria.values()){
             System.out.println(listaDeCategoria.getDescritionCategoria());
         }
         String categoria = scanner.nextLine();
