@@ -14,10 +14,4 @@ public class CategorySearchStrategy implements SearchStrategy {
                 .filter(video -> video.getCategoria().toLowerCase().contains(query.toLowerCase()))
                 .collect(Collectors.toList());
     }
-
-    @Override
-    public String showMessage() {
-        String buscaPorCcategoria = input.nextLine();
-        return "Fazendo pesquisa...";
-    }
 }
