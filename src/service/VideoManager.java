@@ -3,13 +3,14 @@ package service;
 import model.Video;
 import model.listaDeCategoria;
 import repository.FileVideoRepository;
+import repository.VideoRepository;
 import strategy.CategorySearchStrategy;
-import strategy.SearchFactory;
 import strategy.SearchStrategy;
 import strategy.TitleSearchStrategy;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -108,7 +109,74 @@ public class VideoManager {
     }
 
     public void editarVideo (Scanner scanner) {
+        VideoRepository videoRepository = new FileVideoRepository("videos.txt");
+        List<Video> videos = videoRepository.findAll();
 
+        System.out.println("Digite o título do vídeo que deseja editar: ");
+        String videoParaEditar = scanner.nextLine();
+
+        if (videoParaEditar == null || videoParaEditar.isBlank()) {
+            System.out.println("Digite um título para busca.");
+            return;
+        }
+
+        Video encontrarVideoParaEditar = null;
+        for (Video video : videos) {
+            if (video.getTitulo().equalsIgnoreCase(videoParaEditar)) {
+                encontrarVideoParaEditar = video;
+                break;
+            }
+        }
+
+        if (encontrarVideoParaEditar == null) {
+            System.out.println("Nenhum vídeo encontrado com o título fornecido.");
+            return;
+        }
+
+        System.out.println("Digite o novo título do vídeo (ou pressione Enter para manter o atual):");
+        String novoTitulo = scanner.nextLine();
+        if (!novoTitulo.isBlank()) {
+            encontrarVideoParaEditar.setTitulo(novoTitulo);
+        }
+
+        System.out.println("Digite a nova descrição do vídeo (ou pressione Enter para manter a atual):");
+        String novaDescricao = scanner.nextLine();
+        if (!novaDescricao.isBlank()) {
+            encontrarVideoParaEditar.setDescricao(novaDescricao);
+        }
+
+        System.out.println("Digite a nova categoria do vídeo:");
+        String novaCategoria = scanner.nextLine();
+        if (!novaCategoria.isBlank()) {
+            encontrarVideoParaEditar.setCategoria(novaCategoria);
+        } else {
+            System.out.println("A categoria não pode estar vazia.");
+            return;
+        }
+
+        System.out.println("Digite a nova duração do vídeo:");
+        int novaDuracao = scanner.nextInt();
+        scanner.nextLine();
+        if (novaDuracao <= 0) {
+            System.out.println("A duração deve ser igual ou maior do que zero.");
+            return;
+        } else {
+            encontrarVideoParaEditar.setDuracao(novaDuracao);
+        }
+
+        System.out.println("Digite a nova data de publicação do vídeo:");
+        String novaDataPublicacao = scanner.next();
+        Date inputData;
+        try {
+            inputData = new SimpleDateFormat("dd/MM/yyyy").parse(novaDataPublicacao);
+        } catch (ParseException e) {
+            System.out.println("Digite uma data válida.");
+            return;
+        }
+
+        videoRepository.save(encontrarVideoParaEditar);
+
+        System.out.println("Vídeo editado com sucesso!");
     }
 
     public void excluirVideo (Scanner scanner) {

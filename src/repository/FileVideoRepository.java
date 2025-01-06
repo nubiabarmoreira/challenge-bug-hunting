@@ -19,7 +19,7 @@ public class FileVideoRepository implements VideoRepository {
             bufferedWriter.write(video.toString());
             bufferedWriter.newLine();
         } catch (IOException e) {
-            // Ignorar erros por enquanto
+            System.out.println("Erro ao salvar o arquivo: " + e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class FileVideoRepository implements VideoRepository {
                 }
             }
         } catch (IOException e) {
-            // Ignorar erros por enquanto
+            System.out.println("Erro ao procurar o arquivo: " + e.getMessage());
         }
         return videos;
     }
