@@ -23,20 +23,40 @@ public class Video {
         return titulo;
     }
 
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
     public String getDescricao() {
         return descricao;
+    }
+
+    public void setDescricao(String descricao){
+        this.descricao = descricao;
     }
 
     public int getDuracao() {
         return duracao;
     }
 
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
+    }
+
     public String getCategoria() {
         return categoria;
     }
 
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
     public Date getDataPublicacao() {
         return dataPublicacao;
+    }
+
+    public void setDataPublicacao(Date dataPublicacao) {
+        this.dataPublicacao = dataPublicacao;
     }
 
     @Override
