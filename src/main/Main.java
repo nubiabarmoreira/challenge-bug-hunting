@@ -51,6 +51,7 @@ public class Main {
                     break;
                 case 9:
                     System.out.println("Saindo do sistema...");
+                    isMenuOpen = false;
                     break;
                 default:
                     System.out.println("Opção inválida.");
