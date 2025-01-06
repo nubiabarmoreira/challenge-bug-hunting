@@ -74,22 +74,4 @@ public class Video {
             return null; // Ignora erros de parsing
         }
     }
-
-    public void validarDadosDeInput(){
-        if (duracao <= 0){
-            throw new IllegalArgumentException("A duração do vídeo deve ser maior do que zero minutos.");
-        } else if (titulo == null || titulo.isBlank()) {
-            throw new IllegalArgumentException("O título do vídeo deve ser preenchido de forma válida.");
-        } else if (descricao == null || descricao.isBlank()) {
-            throw new IllegalArgumentException("A descrição do vídeo deve ser preenchida de forma válida.");
-        }
-/*
-        try {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        simpleDateFormat.setLenient(false);
-        Date date = simpleDateFormat.parse(dataStr);
-        } catch (ParseException e) {
-            System.out.println("Por favor, insira um formato válido de data dd/MM/yyyy.");
-        }*/
-    }
 }
