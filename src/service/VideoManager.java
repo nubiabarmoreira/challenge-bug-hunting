@@ -16,10 +16,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class VideoManager {
-    private VideoService videoService;
+    private final VideoService videoService;
+    private final VideoRepository videoRepository;
 
     public VideoManager (){
         this.videoService = new VideoServiceImpl(new FileVideoRepository("videos.txt"));
+        this.videoRepository = new FileVideoRepository("videos.txt");
     }
 
     public void adicionarVideo (Scanner scanner) {
@@ -109,7 +111,6 @@ public class VideoManager {
     }
 
     public void editarVideo (Scanner scanner) {
-        VideoRepository videoRepository = new FileVideoRepository("videos.txt");
         List<Video> videos = videoRepository.findAll();
 
         System.out.println("Digite o título do vídeo que deseja editar: ");
@@ -175,14 +176,35 @@ public class VideoManager {
         }
 
         videoRepository.save(encontrarVideoParaEditar);
-
         System.out.println("Vídeo editado com sucesso!");
     }
 
     public void excluirVideo (Scanner scanner) {
-        System.out.println("Encontre o vídeo que deseja excluir.");
-        
+        List<Video> videos = videoRepository.findAll();
 
+        System.out.println("Digite o título do vídeo que deseja excluir: ");
+        String videoParaExcluir = scanner.nextLine();
+
+        if (videoParaExcluir == null || videoParaExcluir.isBlank()) {
+            System.out.println("Digite um título para busca.");
+            return;
+        }
+
+        Video encontrarVideoParaExcluir = null;
+        for (Video video : videos) {
+            if (video.getTitulo().equalsIgnoreCase(videoParaExcluir)) {
+                encontrarVideoParaExcluir = video;
+                break;
+            }
+        }
+
+        if (encontrarVideoParaExcluir == null) {
+            System.out.println("Nenhum vídeo encontrado com o título fornecido.");
+            return;
+        }
+
+        videoService.removeVideo(encontrarVideoParaExcluir);
+        System.out.println("Vídeo excluído com sucesso!");
     }
 
     public void ordenarVideos () {

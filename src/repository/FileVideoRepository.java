@@ -39,4 +39,18 @@ public class FileVideoRepository implements VideoRepository {
         }
         return videos;
     }
+
+    @Override
+    public void delete(Video video) {
+        List<Video> videos = findAll();
+
+        boolean videoParaDeletar = videos.removeIf(v -> v.getTitulo() == video.getTitulo());
+
+        if (!videoParaDeletar) {
+            System.out.println("Vídeo não encontrado no repositório.");
+            return;
+        }
+
+        save(video);
+    }
 }
